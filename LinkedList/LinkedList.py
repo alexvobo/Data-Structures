@@ -15,15 +15,18 @@ class LinkedList():
 
     def printList(self):
         ''' Prints the entire LinkedList in order'''
-        curr = self.head
-        while curr is not None:
-            print(curr.data)
-            curr = curr.next
+        if self.head:
+            curr = self.head
+            while curr is not None:
+                print(curr.data)
+                curr = curr.next
+        else:
+            print(EMPTY)
 
     def addFirst(self, node):
         ''' Add node to front of LinkedList'''
         if node:
-            if self.head is not None:
+            if self.head:
                 node.next = self.head
                 self.head = node
             else:
@@ -32,7 +35,7 @@ class LinkedList():
     def addLast(self, node):
         ''' Add node to the end of LinkedList'''
         if node:
-            if self.head is not None:
+            if self.head:
                 curr = self.head
                 while curr.next is not None:
                     curr = curr.next
