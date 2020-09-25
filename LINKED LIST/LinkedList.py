@@ -60,8 +60,7 @@ class LinkedList():
                     pos += 1
 
                     if pos == index:
-                        temp = curr.next
-                        node.next = temp
+                        node.next = curr.next
                         curr.next = node
                         break
 
@@ -135,6 +134,18 @@ class LinkedList():
 
         return size
 
+    def reverseLL(self):
+        first = self.head
+        reverse = None
+
+        while first is not None:
+            second = first.next
+            first.next = reverse
+            reverse = first
+            first = second
+
+        self.head = reverse
+
 
 if __name__ == "__main__":
     ll = LinkedList()
@@ -150,4 +161,7 @@ if __name__ == "__main__":
     print('size', ll.getSize())
     #print('get', ll.get(None))
     #print('removed', ll.remove(0))
+    ll.printList()
+    print("Reversing")
+    ll.reverseLL()
     ll.printList()

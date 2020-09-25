@@ -70,8 +70,7 @@ class CircularLinkedList():
                     pos += 1
 
                     if pos == index:
-                        temp = curr.next
-                        node.next = temp
+                        node.next = curr.next
                         curr.next = node
                         break
 
@@ -166,9 +165,9 @@ if __name__ == "__main__":
     # ll.addFirst(Node(3))
     # ll.addLast(Node(25))
     # ll.addLast(Node(9))
-    # ll.add(Node(123), 3)
+    ll.add(Node(123), 3)
     # ll.add(Node(123123123), -1)
     print('size', ll.getSize())
-    print('get', ll.get(0))
-    print('removed', ll.remove(2))
+    print('get', ll.get(3).next.data)
+    #print('removed', ll.remove(2).data)
     ll.printList()

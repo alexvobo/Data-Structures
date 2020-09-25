@@ -69,11 +69,11 @@ class DoublyLinkedList():
                     pos += 1
 
                     if pos == index:
-                        afterNode = beforeNode.next
-                        beforeNode.next = node
+                        node.next = beforeNode.next
                         node.prev = beforeNode
-                        afterNode.prev = node
-                        node.next = afterNode
+                        beforeNode.next.prev = node
+                        beforeNode.next = node
+
                         break
 
                     beforeNode = beforeNode.next
@@ -159,9 +159,9 @@ if __name__ == "__main__":
     ll.add(Node(123123123), 2)
     ll.add(Node(823629), 3)
     i = 0
-    print('remove', ll.remove(i).data)
+    #print('remove', ll.remove(i).data)
     ll.add(Node(99), i)
     print('size', ll.getSize())
     ll.printList()
     i = 1
-    print('get i=%d ' % i,  ll.get(i).next.data)
+    print('get i=%d ' % i,  ll.get(i).prev.data)
