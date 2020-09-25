@@ -1,65 +1,82 @@
 from LLIterator import LinkedListIterator
 
-EMPTY = "LinkedList Empty"
+EMPTY = "CircularLinkedList Empty"
 INDEX_OOB = "INDEX OUT OF BOUNDS"
 
 
 class Node:
-    def __init__(self, data=None, next=None):
+    def __init__(self, data=None):
         self.data = data
-        self.next = next
+        self.next = self
 
-class LinkedList:
+
+class CircularLinkedList:
     def __init__(self):
         self.head = None
+        self.size = 0
 
     def __iter__(self):
         return LinkedListIterator(self.head)
 
     def printList(self):
-        ''' Prints the entire LinkedList in order'''
+        ''' Prints the entire CircularLinkedList in order'''
         if self.head:
             curr = self.head
-            while curr is not None:
-                print(curr.data)
+            print(curr.data)
+            while curr.next is not self.head:
                 curr = curr.next
+                print(curr.data)
         else:
             print(EMPTY)
 
-    def addFirst(self, node):
-        ''' Add node to front of LinkedList'''
-        if node:
+    def addFirst(self, item):
+        ''' Add node to front of CircularLinkedList'''
+        if item:
+            node = Node(item)
             if self.head:
+                headptr = self.head
+                curr = self.head
                 node.next = self.head
+                while curr.next != headptr:
+                    curr = curr.next
+                curr.next = node
+
                 self.head = node
             else:
                 self.head = node
+            self.size += 1
 
-    def addLast(self, node):
-        ''' Add node to the end of LinkedList'''
-        if node:
+    def addLast(self, item):
+        ''' Add node to the end of CircularLinkedList'''
+        if item:
+            node = Node(item)
             if self.head:
+                headptr = self.head
                 curr = self.head
-                while curr.next is not None:
+                while curr.next != headptr:
                     curr = curr.next
+                node.next = self.head
                 curr.next = node
             else:
                 self.head = node
+            self.size += 1
 
-    def add(self, node, index=None):
+    def add(self, item, index=None):
         ''' Index is specified => insert at the index.
-            Index not specified => append to front of LinkedList
-            Index of size-1 => append to rear of LinkedList '''
-        if node:
+            Index not specified => append to front of CircularLinkedList
+            Index of size-1 => append to rear of CircularLinkedList '''
+        if item:
             if index is None or index <= 0:
-                self.addFirst(node)
+                self.addFirst(item)
             elif index >= self.getSize():
-                self.addLast(node)
+                self.addLast(item)
             else:
+                node = Node(item)
                 pos = 0
+                headptr = self.head
                 curr = self.head
                 ''' Look ahead by pre-incrementing position since we took care of index being 0 and index being out of bounds'''
-                while curr.next is not None:
+                while curr.next != headptr:
                     pos += 1
 
                     if pos == index:
@@ -68,6 +85,7 @@ class LinkedList:
                         break
 
                     curr = curr.next
+            self.size += 1
 
     def remove(self, index):
         ''' Removes node at specified index'''
@@ -78,24 +96,24 @@ class LinkedList:
                 return self.pop()
             else:
                 future_pos = 1
+                headptr = self.head
+
                 curr = self.head
-                while curr is not None:
+                while curr.next != headptr:
                     if future_pos == index:
+
                         removed_data = curr.next
-                        if curr.next.next is not None:
-                            ''' If there is a node after the node to be removed, skip over the removed node'''
-                            curr.next = curr.next.next
-                        else:
-                            ''' If there is no node after the node to be removed, end the list at the current node'''
-                            curr.next = None
+                        curr.next = curr.next.next
+                        self.size -= 1
                         return removed_data
                     future_pos += 1
                     curr = curr.next
+
         else:
             return EMPTY
 
     def get(self, index):
-        ''' Gets the data of LinkedList item at specified index '''
+        ''' Gets the data of CircularLinkedList item at specified index '''
         if self.head:
             if index is None or index >= self.getSize() or index < 0:
                 return INDEX_OOB
@@ -120,57 +138,48 @@ class LinkedList:
     def pop(self):
         if self.head:
             popped = self.head
-            self.head = self.head.next
+
+            if self.getSize() == 1:
+                self.head = None
+            else:
+                headptr = self.head
+                self.head = self.head.next
+
+                curr = self.head
+                while curr.next != headptr:
+                    curr = curr.next
+                curr.next = self.head
+            self.size -= 1
             return popped
         else:
             return EMPTY
 
     def getSize(self):
-        ''' Returns the amount of nodes in the LinkedList'''
-        curr = self.head
-        size = 0
-        if curr:
-            size = 1
-            while curr.next is not None:
-                size += 1
-                curr = curr.next
-
-        return size
-
-    def reverseLL(self):
-        first = self.head
-        reverse = None
-
-        while first is not None:
-            second = first.next
-            first.next = reverse
-            reverse = first
-            first = second
-
-        self.head = reverse
+        ''' Returns the amount of nodes in the CircularLinkedList'''
+        return self.size
 
 
 if __name__ == "__main__":
-    ll = LinkedList()
-    nodes = [Node(1), Node(2), Node(3), Node(4)]
-    nodes[0].next = nodes[1]
-    nodes[1].next = nodes[2]
-    nodes[2].next = nodes[3]
-    ll.head = nodes[0]
-    ll.addFirst(Node(5))
-    ll.addLast(Node(25))
-    ll.add(Node(123123123), -1)
-    ll.add(Node(123123123), 6)
-    print('size', ll.getSize())
-    #print('get', ll.get(None))
-    #print('removed', ll.remove(0))
+    ll = CircularLinkedList()
+    ll.addFirst(5)
+    ll.addFirst(2)
+    ll.addFirst(1239292)
+    # ll.addLast(Node(25))
+    # ll.addLast(Node(9))
+    ll.add(123, 1)
+    # ll.add(Node(123123123), -1)
     ll.printList()
-    print("iterating")
+    print('size', ll.getSize())
+    print('get', ll.get(3).next.data)
+    print('removed', ll.remove(2).data)
+    print('size', ll.getSize())
+
+    print("Iterating")
     myiter = iter(ll)
+
     print(next(myiter).data)
     print(next(myiter).data)
     print(next(myiter).data)
     print(next(myiter).data)
-    # print("Reversing")
-    # ll.reverseLL()
-    # ll.printList()
+    print(next(myiter).data)
+    print(next(myiter).data)

@@ -5,20 +5,17 @@ INDEX_OOB = "INDEX OUT OF BOUNDS"
 
 
 class Node:
-    def __init__(self, data=None, next=None):
+    def __init__(self, data=None):
         self.data = data
-        if next:
-            next.prev = self
-            self.next = next
-        else:
-            self.next = None
 
+        self.next = None
         self.prev = None
 
 
 class DoublyLinkedList:
     def __init__(self):
         self.head = None
+        self.size = 0
 
     def __iter__(self):
         return LinkedListIterator(self.head)
@@ -33,9 +30,10 @@ class DoublyLinkedList:
         else:
             print(EMPTY)
 
-    def addFirst(self, node):
+    def addFirst(self, item):
         ''' Add node to front of DoublyLinkedList'''
-        if node:
+        if item:
+            node = Node(item)
             if self.head:
                 node.next = self.head
                 self.head.prev = node
@@ -43,10 +41,12 @@ class DoublyLinkedList:
                 self.head = node
             else:
                 self.head = node
+            self.size += 1
 
-    def addLast(self, node):
+    def addLast(self, item):
         ''' Add node to the end of DoublyLinkedList'''
-        if node:
+        if item:
+            node = Node(item)
             if self.head:
                 curr = self.head
                 while curr.next is not None:
@@ -55,17 +55,19 @@ class DoublyLinkedList:
                 curr.next = node
             else:
                 self.head = node
+            self.size += 1
 
-    def add(self, node, index=None):
+    def add(self, item, index=None):
         ''' Index is specified => insert at the index.
             Index not specified => append to front of DoublyLinkedList
             Index of size-1 => append to rear of DoublyLinkedList '''
-        if node:
+        if item:
             if index is None or index <= 0:
-                self.addFirst(node)
+                self.addFirst(item)
             elif index >= self.getSize():
-                self.addLast(node)
+                self.addLast(item)
             else:
+                node = Node(item)
                 pos = 0
                 beforeNode = self.head
                 ''' Look ahead by pre-incrementing position since we took care of index being 0 and index being out of bounds'''
@@ -77,7 +79,7 @@ class DoublyLinkedList:
                         node.prev = beforeNode
                         beforeNode.next.prev = node
                         beforeNode.next = node
-
+                        self.size += 1
                         break
 
                     beforeNode = beforeNode.next
@@ -103,6 +105,7 @@ class DoublyLinkedList:
                         else:
                             ''' If there is no node after the node to be removed, end the list at the current node'''
                             curr.next = None
+                        self.size -= 1
                         return removed_data
                     future_pos += 1
                     curr = curr.next
@@ -137,36 +140,30 @@ class DoublyLinkedList:
             popped = self.head
             self.head = self.head.next
             self.head.prev = None
+            self.size -= 1
             return popped
         else:
             return EMPTY
 
     def getSize(self):
         ''' Returns the amount of nodes in the DoublyLinkedList'''
-        curr = self.head
-        size = 0
-        if curr:
-            size = 1
-            while curr.next is not None:
-                size += 1
-                curr = curr.next
-
-        return size
+        return self.size
 
 
 if __name__ == "__main__":
     ll = DoublyLinkedList()
 
-    ll.head = Node(1)
-    ll.addFirst(Node(5))
-    ll.addLast(Node(25))
-    ll.add(Node(123123123), 2)
-    ll.add(Node(823629), 3)
+    ll.addFirst(5)
+    ll.addLast(25)
+    ll.add(123123123123, 2)
+    ll.add(82367, 3)
     i = 0
-    # print('remove', ll.remove(i).data)
-    ll.add(Node(99), i)
+    #
+    ll.add(99, i)
     print('size', ll.getSize())
     ll.printList()
+    print('remove', ll.remove(i).data)
+    print('size', ll.getSize())
     i = 1
     print('get i=%d ' % i,  ll.get(i).prev.data)
     print("iterating")
