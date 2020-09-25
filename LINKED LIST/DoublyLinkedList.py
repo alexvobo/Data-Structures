@@ -15,9 +15,28 @@ class Node:
         self.prev = None
 
 
-class DoublyLinkedList():
+class DoublyLinkedListIterator:
+    def __init__(self, head):
+        self.curr = head
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if not self.curr:
+            raise StopIteration
+        else:
+            node = self.curr
+            self.curr = self.curr.next
+            return node
+
+
+class DoublyLinkedList:
     def __init__(self):
         self.head = None
+
+    def __iter__(self):
+        return DoublyLinkedListIterator(self.head)
 
     def printList(self):
         ''' Prints the entire DoublyLinkedList in order'''
@@ -159,9 +178,16 @@ if __name__ == "__main__":
     ll.add(Node(123123123), 2)
     ll.add(Node(823629), 3)
     i = 0
-    #print('remove', ll.remove(i).data)
+    # print('remove', ll.remove(i).data)
     ll.add(Node(99), i)
     print('size', ll.getSize())
     ll.printList()
     i = 1
     print('get i=%d ' % i,  ll.get(i).prev.data)
+    print("iterating")
+    myiter = iter(ll)
+    
+    print(next(myiter).data)
+    print(next(myiter).data)
+    print(next(myiter).data)
+    print(next(myiter).data)

@@ -8,11 +8,28 @@ class Node:
         self.data = data
         self.next = next
 
+class LinkedListIterator:
+    def __init__(self, head):
+        self.curr = head
 
-class LinkedList():
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if not self.curr:
+            raise StopIteration
+        else:
+            node = self.curr
+            self.curr = self.curr.next
+            return node
+
+class LinkedList:
     def __init__(self):
         self.head = None
-
+        
+    def __iter__(self):
+        return LinkedListIterator(self.head)
+    
     def printList(self):
         ''' Prints the entire LinkedList in order'''
         if self.head:
@@ -162,6 +179,12 @@ if __name__ == "__main__":
     #print('get', ll.get(None))
     #print('removed', ll.remove(0))
     ll.printList()
-    print("Reversing")
-    ll.reverseLL()
-    ll.printList()
+    print("iterating")
+    myiter = iter(ll)
+    print(next(myiter).data)
+    print(next(myiter).data)
+    print(next(myiter).data)
+    print(next(myiter).data)
+    #print("Reversing")
+    #ll.reverseLL()
+    #ll.printList()

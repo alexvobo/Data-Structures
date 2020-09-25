@@ -9,7 +9,7 @@ class Node:
         self.next = next if next else self
 
 
-class CircularLinkedList():
+class CircularLinkedList:
     def __init__(self):
         self.head = None
 
