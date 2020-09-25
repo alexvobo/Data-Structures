@@ -56,7 +56,7 @@ class LinkedList():
                 pos = 0
                 curr = self.head
                 ''' Look ahead by pre-incrementing position since we took care of index being 0 and index being out of bounds'''
-                while curr is not None:
+                while curr.next is not None:
                     pos += 1
 
                     if pos == index:
@@ -68,7 +68,7 @@ class LinkedList():
                     curr = curr.next
 
     def remove(self, index):
-        ''' Removes node at specified'''
+        ''' Removes node at specified index'''
         if self.head:
             if index is None or index >= self.getSize() or index < 0:
                 return INDEX_OOB
@@ -146,7 +146,8 @@ if __name__ == "__main__":
     ll.addFirst(Node(5))
     ll.addLast(Node(25))
     ll.add(Node(123123123), -1)
-    #print('size', ll.getSize())
+    ll.add(Node(123123123), 6)
+    print('size', ll.getSize())
     #print('get', ll.get(None))
-    print('removed', ll.remove(0))
+    #print('removed', ll.remove(0))
     ll.printList()
