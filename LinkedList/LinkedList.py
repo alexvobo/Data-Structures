@@ -79,7 +79,7 @@ class LinkedList():
                 curr = self.head
                 while curr is not None:
                     if future_pos == index:
-                        removed_data = curr.next.data
+                        removed_data = curr.next
                         if curr.next.next is not None:
                             ''' If there is a node after the node to be removed, skip over the removed node'''
                             curr.next = curr.next.next
@@ -105,19 +105,19 @@ class LinkedList():
                     pos += 1
                     curr = curr.next
 
-                return curr.data
+                return curr
         else:
             return EMPTY
 
     def peek(self):
         if self.head:
-            return self.head.data
+            return self.head
         else:
             return EMPTY
 
     def pop(self):
         if self.head:
-            popped = self.head.data
+            popped = self.head
             self.head = self.head.next
             return popped
         else:
