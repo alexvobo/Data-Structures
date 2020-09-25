@@ -1,3 +1,4 @@
+from LLIterator import LinkedListIterator
 
 EMPTY = "DoublyLinkedList Empty"
 INDEX_OOB = "INDEX OUT OF BOUNDS"
@@ -15,28 +16,12 @@ class Node:
         self.prev = None
 
 
-class DoublyLinkedListIterator:
-    def __init__(self, head):
-        self.curr = head
-
-    def __iter__(self):
-        return self
-
-    def __next__(self):
-        if not self.curr:
-            raise StopIteration
-        else:
-            node = self.curr
-            self.curr = self.curr.next
-            return node
-
-
 class DoublyLinkedList:
     def __init__(self):
         self.head = None
 
     def __iter__(self):
-        return DoublyLinkedListIterator(self.head)
+        return LinkedListIterator(self.head)
 
     def printList(self):
         ''' Prints the entire DoublyLinkedList in order'''
@@ -186,7 +171,7 @@ if __name__ == "__main__":
     print('get i=%d ' % i,  ll.get(i).prev.data)
     print("iterating")
     myiter = iter(ll)
-    
+
     print(next(myiter).data)
     print(next(myiter).data)
     print(next(myiter).data)

@@ -1,3 +1,4 @@
+from LLIterator import LinkedListIterator
 
 EMPTY = "CircularLinkedList Empty"
 INDEX_OOB = "INDEX OUT OF BOUNDS"
@@ -12,6 +13,9 @@ class Node:
 class CircularLinkedList:
     def __init__(self):
         self.head = None
+
+    def __iter__(self):
+        return LinkedListIterator(self.head)
 
     def printList(self):
         ''' Prints the entire CircularLinkedList in order'''
@@ -171,3 +175,13 @@ if __name__ == "__main__":
     print('get', ll.get(3).next.data)
     #print('removed', ll.remove(2).data)
     ll.printList()
+
+    print("Iterating")
+    myiter = iter(ll)
+
+    print(next(myiter).data)
+    print(next(myiter).data)
+    print(next(myiter).data)
+    print(next(myiter).data)
+    print(next(myiter).data)
+    print(next(myiter).data)
