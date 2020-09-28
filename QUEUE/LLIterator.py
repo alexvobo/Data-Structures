@@ -1,6 +1,6 @@
 class LinkedListIterator:
-    def __init__(self, head):
-        self.curr = head
+    def __init__(self, first):
+        self.curr = first
 
     def __iter__(self):
         return self
