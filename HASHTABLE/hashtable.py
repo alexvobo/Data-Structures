@@ -1,5 +1,7 @@
 from LinkedList import LinkedList
 import random
+import sys
+import io
 
 
 class HashTable:
@@ -25,7 +27,7 @@ class HashTable:
         except KeyError:
             self.hashtable[key] = LinkedList()
             self.hashtable[key].add(item)
-            #print("Created new bucket at ", key)
+            #print("Created new bucket at ", key, "for item: ", item)
             #! TESTING
             self.indices.append(key)
 
@@ -34,8 +36,9 @@ class HashTable:
         try:
             bucket = self.hashtable[key]
             #! rework later currently getItem returns a tuple (pos, node), passes index of item to delete function
-            removed = bucket.remove(bucket.getItem(item)[0])
+            removed = bucket.removeItem(item)
             if removed:
+                bucket.printListString()
                 return removed
         except KeyError:
             print("Failed to delete")
@@ -60,17 +63,39 @@ class HashTable:
             for j in iter(v):
                 txt.append(j.data)
             print(str(txt))
-            
 
 
-ht = HashTable()
-for _ in range(30):
+''' Will shuffle a list, used for testing linked list functions'''
+
+
+def randomly(listseq):
+    shuffled = listseq
+    random.shuffle(shuffled)
+    return iter(shuffled)
+
+#! TESTING PURPOSES ONLY, SUPPRESSES OUTPUT
+# text_trap = io.StringIO()
+# sys.stdout = text_trap
+ht = HashTable(50)
+items = []
+for i in range(100):
+    #ht.insert(i)
     ht.insert(random.randint(0, 100))
 
 
 ht.printht()
 
+print("-----REMOVING-----")
 for idx in ht.indices:
     for it in iter(ht.hashtable[idx]):
-        ht.get(it.data)
+        items.append(it.data)
+    print('actual', items)
+    randomly(items)
+    print('shuffled', items)
+    if items:
+        for it in items:
+            # ht.get(it)
+            ht.delete(it)
+        items = []
     print('---')
+ht.printht()

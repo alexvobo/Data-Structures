@@ -26,11 +26,21 @@ class LinkedList:
                 print(curr.data)
                 curr = curr.next
         else:
-            print(EMPTY)
+            print("EMPTY")
+            
+    def printListString(self):
+        if self.head:
+            curr = self.head
+            printstr = []
+            while curr is not None:
+                printstr.append(str(curr.data))
+                printstr.append("->") if curr.next else None
+                curr = curr.next
 
-    def addFirst(self, item):
+            print(" ".join(printstr))
+    def addFirst(self, item=None):
         ''' Add node to front of LinkedList'''
-        if item:
+        if item is not None:
             node = Node(item)
             if self.head:
                 node.next = self.head
@@ -39,9 +49,9 @@ class LinkedList:
                 self.head = node
             self.size += 1
 
-    def addLast(self, item):
+    def addLast(self, item=None):
         ''' Add node to the end of LinkedList'''
-        if item:
+        if item is not None:
             node = Node(item)
             if self.head:
                 curr = self.head
@@ -52,11 +62,11 @@ class LinkedList:
                 self.head = node
             self.size += 1
 
-    def add(self, item, index=None):
+    def add(self, item=None, index=None):
         ''' Index is specified => insert at the index.
             Index not specified => append to front of LinkedList
             Index of size-1 => append to rear of LinkedList '''
-        if item:
+        if item is not None:
             if index is None or index <= 0:
                 self.addFirst(item)
             elif index >= self.getSize():
@@ -76,6 +86,8 @@ class LinkedList:
                         break
 
                     curr = curr.next
+        else:
+            print("Failed to add: ", item)
 
     def remove(self, index):
         ''' Removes node at specified index'''
@@ -103,6 +115,27 @@ class LinkedList:
         else:
             return EMPTY
 
+    def removeItem(self, item=None):
+        if self.head:
+            if item is not None:
+                curr = self.head
+                if curr.data == item:
+                    print("popping: ", curr.data)
+                    return self.pop()
+                while curr.next is not None:
+                    if curr.next.data == item:
+                        removed_data = curr.next
+                        if curr.next.next is not None:
+                            ''' If there is a node after the node to be removed, skip over the removed node'''
+                            curr.next = curr.next.next
+                        else:
+                            ''' If there is no node after the node to be removed, end the list at the current node'''
+                            curr.next = None
+                        print("removing: ", removed_data.data)
+                        return removed_data
+                    curr = curr.next
+                return False
+
     def get(self, index):
         ''' Gets the data of LinkedList item at specified index '''
         if self.head:
@@ -120,10 +153,10 @@ class LinkedList:
         else:
             return EMPTY
 
-    def getItem(self, item):
+    def getItem(self, item = None):
         ''' Gets the index of LinkedList item '''
         if self.head:
-            if item:
+            if item is not None:
                 pos = 0
                 curr = self.head
 
@@ -167,9 +200,10 @@ class LinkedList:
         self.head = reverse
 
 
+
 if __name__ == "__main__":
     ll = LinkedList()
-
+    ll.add(0)
     ll.addFirst(5)
     ll.addLast(25)
     ll.add(123123123, -1)
@@ -178,12 +212,16 @@ if __name__ == "__main__":
     #print('get', ll.get(None))
 
     ll.printList()
-    print("iterating")
-    myiter = iter(ll)
-    print(next(myiter).data)
-    print(next(myiter).data)
-    print(next(myiter).data)
-    print(next(myiter).data)
+
+    ll.removeItem(5)
+    print("removed")
+    ll.printList()
+    # print("iterating")
+    # myiter = iter(ll)
+    # print(next(myiter).data)
+    # print(next(myiter).data)
+    # print(next(myiter).data)
+    # print(next(myiter).data)
     # print("Reversing")
     # ll.reverseLL()
     # ll.printList()

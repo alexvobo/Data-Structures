@@ -29,9 +29,9 @@ class CircularLinkedList:
         else:
             print(EMPTY)
 
-    def addFirst(self, item):
+    def addFirst(self, item = None):
         ''' Add node to front of CircularLinkedList'''
-        if item:
+        if item is not None:
             node = Node(item)
             if self.head:
                 headptr = self.head
@@ -46,9 +46,9 @@ class CircularLinkedList:
                 self.head = node
             self.size += 1
 
-    def addLast(self, item):
+    def addLast(self, item = None):
         ''' Add node to the end of CircularLinkedList'''
-        if item:
+        if item is not None:
             node = Node(item)
             if self.head:
                 headptr = self.head
@@ -61,11 +61,11 @@ class CircularLinkedList:
                 self.head = node
             self.size += 1
 
-    def add(self, item, index=None):
+    def add(self, item = None, index=None):
         ''' Index is specified => insert at the index.
             Index not specified => append to front of CircularLinkedList
             Index of size-1 => append to rear of CircularLinkedList '''
-        if item:
+        if item is not None:
             if index is None or index <= 0:
                 self.addFirst(item)
             elif index >= self.getSize():

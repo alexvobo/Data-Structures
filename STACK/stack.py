@@ -23,12 +23,13 @@ class Stack:
 
     ''' Put item on top of first item'''
 
-    def push(self, item):
-        oldFirst = self.first
-        self.first = Node(item)
-        print("Pushing: ", item)
-        self.first.next = oldFirst
-        self.size += 1
+    def push(self, item=None):
+        if item is not None:
+            oldFirst = self.first
+            self.first = Node(item)
+            print("Pushing: ", item)
+            self.first.next = oldFirst
+            self.size += 1
     ''' Removes first item '''
 
     def pop(self):
