@@ -2,17 +2,18 @@ def selection_sort(items):
 
     if type(items) is list:
         n = len(items)
+
         for i in range(0, n):
             min_item = i
 
             for j in range(i+1, n):
                 if items[j] < items[min_item]:
                     min_item = j
+
             print('min: ', items[min_item], ' -> ', items)
+
             if min_item != i:
-
                 temp = items[i]
-
                 items[i] = items[min_item]
                 items[min_item] = temp
 
