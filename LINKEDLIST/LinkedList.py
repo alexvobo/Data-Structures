@@ -10,6 +10,21 @@ class Node:
         self.next = None
 
 
+def printList(l):
+    ''' Prints the entire LinkedList in order'''
+    if l:
+        out = []
+        curr = l
+
+        while curr is not None:
+            s = str(curr.data)+' ->' if curr.next else str(curr.data)
+            out.append(s)
+            curr = curr.next
+        print(" ".join(out))
+    else:
+        print(EMPTY)
+
+
 class LinkedList:
     def __init__(self):
         self.head = None
@@ -21,14 +36,18 @@ class LinkedList:
     def printList(self):
         ''' Prints the entire LinkedList in order'''
         if self.head:
+            out = []
             curr = self.head
+
             while curr is not None:
-                print(curr.data)
+                s = str(curr.data)+' ->' if curr.next else str(curr.data)
+                out.append(s)
                 curr = curr.next
+            print(" ".join(out))
         else:
             print(EMPTY)
 
-    def addFirst(self, item = None):
+    def addFirst(self, item=None):
         ''' Add node to front of LinkedList'''
         if item is not None:
             node = Node(item)
@@ -39,7 +58,7 @@ class LinkedList:
                 self.head = node
             self.size += 1
 
-    def addLast(self, item = None):
+    def addLast(self, item=None):
         ''' Add node to the end of LinkedList'''
         if item is not None:
             node = Node(item)
@@ -52,7 +71,7 @@ class LinkedList:
                 self.head = node
             self.size += 1
 
-    def add(self, item = None, index=None):
+    def add(self, item=None, index=None):
         ''' Index is specified => insert at the index.
             Index not specified => append to front of LinkedList
             Index of size-1 => append to rear of LinkedList '''
@@ -151,24 +170,47 @@ class LinkedList:
 
         self.head = reverse
 
+    def insertion_sort(self):
+        if self.head is not None and self.head.next is not None:
+            new_list = None
+            listptr = self.head
+            print('\nSTART INSERTION SORT (new list forming)')
+
+            while listptr is not None:
+                curr = listptr
+                listptr = listptr.next
+                if new_list is None or curr.data < new_list.data:
+                    curr.next = new_list
+                    new_list = curr
+                else:
+                    ptr = new_list
+                    while ptr is not None:
+                        if ptr.next is None or (curr.data < ptr.next.data):
+                            curr.next = ptr.next
+                            ptr.next = curr
+                            break
+                        ptr = ptr.next
+                printList(new_list)
+            self.head = new_list
+            print('END SORT\n')
+
 
 if __name__ == "__main__":
     ll = LinkedList()
 
-    ll.addFirst(5)
-    ll.addLast(25)
-    ll.add(123123123, -1)
-    ll.add(1231231222223, 6)
-    print('size', ll.getSize())
-    #print('get', ll.get(None))
+    nums = [3, 7, 4, 9, 5, 2, 6, 1]
+
+    [ll.addLast(i) for i in nums]
 
     ll.printList()
-    print("iterating")
-    myiter = iter(ll)
-    print(next(myiter).data)
-    print(next(myiter).data)
-    print(next(myiter).data)
-    print(next(myiter).data)
+    ll.insertion_sort()
+    ll.printList()
+    # print("iterating")
+    # myiter = iter(ll)
+    # print(next(myiter).data)
+    # print(next(myiter).data)
+    # print(next(myiter).data)
+    # print(next(myiter).data)
     # print("Reversing")
     # ll.reverseLL()
     # ll.printList()

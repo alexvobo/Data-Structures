@@ -1,6 +1,7 @@
 
 def bubble_sort(items):
-    if type(items) == list:
+
+    if type(items) is list:
         n = len(items)
         passes = 0
         while n > 0:
