@@ -23,7 +23,7 @@ class Queue:
 
     ''' Add items to the rear of the queue'''
 
-    def enqueue(self, item = None):
+    def enqueue(self, item=None):
         if item is not None:
             oldLast = self.last
             it = Node(item)
