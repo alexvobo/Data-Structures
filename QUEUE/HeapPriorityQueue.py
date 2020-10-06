@@ -29,10 +29,8 @@ class MaxHeap:
         return max
 
     def exch(self, i, j):
-        temp = self.pq[i]
-        self.pq[i] = self.pq[j]
-        self.pq[j] = temp
-        print("swapped {} with {}".format(temp, self.pq[i]))
+        self.pq[i], self.pq[j] = self.pq[j], self.pq[i]
+        print("swapped {} with {}".format(self.pq[j], self.pq[i]))
         self.printpq(print_size=False)
 
     def less(self, i, j):
