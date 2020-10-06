@@ -20,7 +20,7 @@ class DoublyLinkedList:
     def __iter__(self):
         return LinkedListIterator(self.head)
 
-    def printList(self):
+    def print_list(self):
         ''' Prints the entire DoublyLinkedList in order'''
         if self.head:
             curr = self.head
@@ -30,7 +30,7 @@ class DoublyLinkedList:
         else:
             print(EMPTY)
 
-    def addFirst(self, item = None):
+    def add_first(self, item = None):
         ''' Add node to front of DoublyLinkedList'''
         if item is not None:
             node = Node(item)
@@ -43,7 +43,7 @@ class DoublyLinkedList:
                 self.head = node
             self.size += 1
 
-    def addLast(self, item = None):
+    def add_last(self, item = None):
         ''' Add node to the end of DoublyLinkedList'''
         if item is not None:
             node = Node(item)
@@ -63,9 +63,9 @@ class DoublyLinkedList:
             Index of size-1 => append to rear of DoublyLinkedList '''
         if item is not None:
             if index is None or index <= 0:
-                self.addFirst(item)
-            elif index >= self.getSize():
-                self.addLast(item)
+                self.add_first(item)
+            elif index >= self.get_size():
+                self.add_last(item)
             else:
                 node = Node(item)
                 pos = 0
@@ -87,7 +87,7 @@ class DoublyLinkedList:
     def remove(self, index):
         ''' Removes node at specified index'''
         if self.head:
-            if index is None or index >= self.getSize() or index < 0:
+            if index is None or index >= self.get_size() or index < 0:
                 return INDEX_OOB
             elif index == 0:
                 return self.pop()
@@ -115,7 +115,7 @@ class DoublyLinkedList:
     def get(self, index):
         ''' Gets the data of DoublyLinkedList item at specified index '''
         if self.head:
-            if index is None or index >= self.getSize() or index < 0:
+            if index is None or index >= self.get_size() or index < 0:
                 return INDEX_OOB
             else:
                 pos = 0
@@ -145,7 +145,7 @@ class DoublyLinkedList:
         else:
             return EMPTY
 
-    def getSize(self):
+    def get_size(self):
         ''' Returns the amount of nodes in the DoublyLinkedList'''
         return self.size
 
@@ -153,17 +153,17 @@ class DoublyLinkedList:
 if __name__ == "__main__":
     ll = DoublyLinkedList()
 
-    ll.addFirst(5)
-    ll.addLast(25)
+    ll.add_first(5)
+    ll.add_last(25)
     ll.add(123123123123, 2)
     ll.add(82367, 3)
     i = 0
     #
     ll.add(99, i)
-    print('size', ll.getSize())
-    ll.printList()
+    print('size', ll.get_size())
+    ll.print_list()
     print('remove', ll.remove(i).data)
-    print('size', ll.getSize())
+    print('size', ll.get_size())
     i = 1
     print('get i=%d ' % i,  ll.get(i).prev.data)
     print("iterating")

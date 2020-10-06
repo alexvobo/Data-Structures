@@ -33,7 +33,7 @@ class LinkedList:
     def __iter__(self):
         return LinkedListIterator(self.head)
 
-    def printList(self):
+    def print_list(self):
         ''' Prints the entire LinkedList in order'''
         if self.head:
             out = []
@@ -47,7 +47,7 @@ class LinkedList:
         else:
             print(EMPTY)
 
-    def addFirst(self, item=None):
+    def add_first(self, item=None):
         ''' Add node to front of LinkedList'''
         if item is not None:
             node = Node(item)
@@ -58,7 +58,7 @@ class LinkedList:
                 self.head = node
             self.size += 1
 
-    def addLast(self, item=None):
+    def add_last(self, item=None):
         ''' Add node to the end of LinkedList'''
         if item is not None:
             node = Node(item)
@@ -77,9 +77,9 @@ class LinkedList:
             Index of size-1 => append to rear of LinkedList '''
         if item is not None:
             if index is None or index <= 0:
-                self.addFirst(item)
-            elif index >= self.getSize():
-                self.addLast(item)
+                self.add_first(item)
+            elif index >= self.get_size():
+                self.add_last(item)
             else:
                 node = Node(item)
                 pos = 0
@@ -99,7 +99,7 @@ class LinkedList:
     def remove(self, index):
         ''' Removes node at specified index'''
         if self.head:
-            if index is None or index >= self.getSize() or index < 0:
+            if index is None or index >= self.get_size() or index < 0:
                 return INDEX_OOB
             elif index == 0:
                 return self.pop()
@@ -125,7 +125,7 @@ class LinkedList:
     def get(self, index):
         ''' Gets the data of LinkedList item at specified index '''
         if self.head:
-            if index is None or index >= self.getSize() or index < 0:
+            if index is None or index >= self.get_size() or index < 0:
                 return INDEX_OOB
             else:
                 pos = 0
@@ -154,11 +154,11 @@ class LinkedList:
         else:
             return EMPTY
 
-    def getSize(self):
+    def get_size(self):
         ''' Returns the amount of nodes in the LinkedList'''
         return self.size
 
-    def reverseLL(self):
+    def reverse_LL(self):
         first = self.head
         reverse = None
 
@@ -200,11 +200,11 @@ if __name__ == "__main__":
 
     nums = [3, 7, 4, 9, 5, 2, 6, 1]
 
-    [ll.addLast(i) for i in nums]
+    [ll.add_last(i) for i in nums]
 
-    ll.printList()
+    ll.print_list()
     ll.insertion_sort()
-    ll.printList()
+    ll.print_list()
     # print("iterating")
     # myiter = iter(ll)
     # print(next(myiter).data)

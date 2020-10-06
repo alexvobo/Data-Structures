@@ -16,13 +16,9 @@ def partition(items, lo, hi):
     i = lo
     for j in range(lo, hi+1):
         if items[j] < pivot:
-            temp_ij = items[i]
-            items[i] = items[j]
-            items[j] = temp_ij
+            items[i], items[j] = items[j], items[i]
             i += 1
-    temp_ihi = items[i]
-    items[i] = items[hi]
-    items[hi] = temp_ihi
+    items[i], items[hi] = items[hi], items[i]
     return i
 
 

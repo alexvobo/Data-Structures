@@ -13,9 +13,7 @@ def selection_sort(items):
             print('min: ', items[min_item], ' -> ', items)
 
             if min_item != i:
-                temp = items[i]
-                items[i] = items[min_item]
-                items[min_item] = temp
+                items[i], items[min_item] = items[min_item], items[i]
 
 
 if __name__ == "__main__":

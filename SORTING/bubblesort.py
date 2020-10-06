@@ -9,12 +9,10 @@ def bubble_sort(items):
             # i = iteration
             for i in range(1, n):
                 if items[i-1] > items[i]:
-                    temp = items[i-1]
-                    items[i-1] = items[i]
-                    items[i] = temp
+                    items[i-1], items[i] = items[i], items[i-1]
                     newn = i
                     print('(i={}|n={}): {}   Swap   {} > {}'.format(i,
-                                                                    n, items, temp, items[i-1]))
+                                                                    n, items, items[i], items[i-1]))
                 else:
                     print('(i={}|n={}): {}  [Keep]  {} <= {}'.format(i,
                                                                      n, items, items[i-1], items[i]))
